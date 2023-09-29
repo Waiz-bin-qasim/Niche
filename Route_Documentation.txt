@@ -1,0 +1,183 @@
+------------------------------------------------------
+Banner:
+1) get banner: 
+request: Nothing Required
+Route: "/banner" -> get 
+result: Links of all images
+
+2) post banner: 
+request: admin Token , image in "form data" format in "image" field
+Route: "/banner/upload" -> post 
+result: "image uploaded"
+
+3) delete banner: 
+request: admin token
+Route: "/banner/<banner_id> " -> delete 
+result: "done"
+
+---------------------------------------------------------------
+Category:
+1) get all Category: 
+request: Nothing Required
+Route: "/banner" -> get 
+result: Links of all images
+
+2) post banner: 
+request: admin Token , image in "form data" format in "image" field
+Route: "/banner/upload" -> post 
+result: "image uploaded"
+
+3) delete banner: 
+request: admin token
+Route: "/banner/<banner_id> " -> delete 
+result: "done"
+
+---------------------------------------------------------------
+
+1)GET /categories
+Request:
+Method: GET
+Path: /categories
+Headers: None
+Response:
+Status Code: 200 OK
+Body: An array of category objects, each containing:
+category_id: The unique identifier for the category.
+name: The name of the category.
+image_url: The URL of the category image (if available).
+GET /categories/:category_id
+Retrieve information about a specific category.
+
+2)Request:
+Method: GET
+Path: /categories/:category_id
+Headers: None
+Parameters:
+category_id: The unique identifier of the category.
+Response:
+Status Code: 200 OK
+Body:all sub categories
+
+
+3)POST /categories
+Create a new category. (Requires authentication and admin privileges)
+Request:
+Method: POST
+Path: /categories
+Headers:
+Authorization: Bearer token (Required for authentication)
+Body: form data containing image field with image 
+category_name: The name of the category.
+image: An image file representing the category.
+Response:
+Status Code: 200 Created
+"done"
+
+4)DELETE /categories/:category_id
+Delete a category. (Requires authentication and admin privileges)
+Request:
+Method: DELETE
+Path: /categories/:category_id
+Headers:
+admin token
+Parameters:
+category_id: The unique identifier of the category to be deleted.
+Response:
+
+Status Code: 204 No Content
+
+-----------------------------------------------------------
+
+POST /subcategories
+Request:
+Method: POST
+Path: /subcategories
+Headers:
+admin token
+Body: form data with image and name of sub category
+subCategory_name: The name of the subcategory.
+image: An image file representing the subcategory.
+Response:
+Status Code: 200
+
+DELETE /subcategories/:subCategory_id
+Delete a subcategory. (Requires authentication and admin privileges)
+Request:
+Method: DELETE
+Path: /subcategories/:subCategory_id
+Headers:
+admin token 
+Parameters:
+subCategory_id: The unique identifier of the subcategory to be deleted.
+
+-----------------------------------------------------------
+
+Service:
+1) get all service: 
+request: Nothing Required
+Route: "/service" -> get 
+result: all service data
+
+
+2) get a service: 
+request: Nothing Required
+Route: "/service/<service_id>" -> get 
+result: all service data
+
+
+3) post service: 
+request: seller Token , image in "form data" format in "image" field,service_title,service_price,service_image,service_description,duration,category_id,image
+Route: "/service" -> post 
+token
+result: "image uploaded"
+
+
+3) put service: 
+request: seller Token , image in "form data" format in "image" field
+Route: "/service/<service_id>" -> post 
+token
+result: "image uploaded"
+Mention only attributes Required
+
+
+3) delete banner: 
+request: seller token
+Route: "/service/<service_id> " -> delete 
+token
+result: "done"
+
+---------------------------------------------------------------
+
+seller:
+1) get seller for seller: 
+request: token 
+Route: "/seller" -> get 
+result: all seller data
+
+
+2) get seller for others: 
+request: Nothing Required
+Route: "/seller/<seller_id>" -> get 
+result: username,first_name,last_name,bio,profile_picture,user_city,user_state,user_country,average_rating,total_projects_completed 
+
+3) update seller: 
+request: seller Token 
+Route: "/seller" -> put 
+token
+result: "done"
+
+-----------------------------------------------------------
+buyer:
+1) get buyer for buyer: 
+request: token
+Route: "/buyer" -> get 
+result: all buyer data
+
+2) update buyer: 
+request: buyer Token all items to be updated and image in "image" field 
+Route: "/buyer" -> put 
+token
+result: "done"
+
+-----------------------------------------------------------
+sellers list for admin
