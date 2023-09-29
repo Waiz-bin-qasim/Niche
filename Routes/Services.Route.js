@@ -29,7 +29,7 @@ serviceRoute.get("/", getAllService);
 serviceRoute.get("/subCategory/:subCategory", getServiceBySubCategory);
 serviceRoute.get("/:service_id", getService);
 serviceRoute.get("/seller/:seller_id", getSellerService);
-serviceRoute.delete("/:service_id", authToken, sellerCheck, deleteService);
+serviceRoute.delete("/waiz/:service_id", authToken, sellerCheck, deleteService);
 serviceRoute.post(
   "/",
   authToken,

@@ -61,13 +61,14 @@ export const addService = (req, res) => {
 export const deleteService = (req, res) => {
   try {
     const { service_id } = req.params;
-    const { user_id } = req.user_id;
+    const { user_id } = req.body;
+    console.log(user_id);
     if (service_id) {
       Services.findById(service_id, (err, result) => {
         if (err) res.status(400).send({ err: err.sqlMessage });
         else {
           if (result.length > 0) {
-            Services.deleteById(service_id, user_id, (err, result) => {
+            Services.deleteById(service_id, user_id, (err, result2) => {
               if (err) res.status(400).send({ err: err.sqlMessage });
               else {
                 const filePath = result[0].service_image;

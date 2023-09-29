@@ -15,9 +15,9 @@ import { buyerCheck, sellerCheck } from "../Middlewares/tokenValidation.js";
 const ProposalRoutes = new Router();
 
 // Routes For buyer
-ProposalRoutes.get('/buyer',authToken,buyerCheck,getAllBuyerProposal );
-ProposalRoutes.get("/buyer/:proposal_id", authToken, buyerCheck, getOneBuyerProposal);
-ProposalRoutes.get("/project/:project_id", authToken, buyerCheck, getAllProposalByProjectId);
+ProposalRoutes.get('/buyer',authToken,buyerCheck,getAllBuyerProposal ); // data kam display karwana hai 
+ProposalRoutes.get("/buyer/:proposal_id", authToken, buyerCheck, getOneBuyerProposal); // saradata jaiga
+ProposalRoutes.get("/project/:project_id", authToken, buyerCheck, getAllProposalByProjectId); // specific proposal ki sari details jaingi
 
 // Routes For seller
 ProposalRoutes.put("/:proposal_id", authToken, sellerCheck, updateProposal);
