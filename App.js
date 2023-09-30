@@ -14,6 +14,7 @@ import buyerRoutes from "./Routes/Buyer.Route.js";
 import DirectPurchaseRoutes from "./Routes/DirectPurchase.Route.js";
 import ProposalRoutes from "./Routes/Proposal.Route.js";
 import favoriteRoutes from "./Routes/Favorites.Route.js";
+import JobRoutes from "./Routes/Job.Route.js";
 const app = express();
 const port = 3000;
 const ip = "";
@@ -40,6 +41,7 @@ app.use("/directpurchase", DirectPurchaseRoutes);
 //module 4
 app.use("/proposal", ProposalRoutes);
 app.use("/favorites", favoriteRoutes);
+app.use("/jobpost", JobRoutes);
 // buy credit
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
