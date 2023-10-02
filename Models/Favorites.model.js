@@ -20,7 +20,7 @@ export class Favorites {
   static getFavoriteByBuyerIdAsync = (buyer_id) => {
     return new Promise((res, rej) => {
       sql.query(
-        "select s.service_title , s.service_description from favorite f,services s where f.buyer_id = ? and f.service_id = s.service_id",
+        "select s.service_title , s.service_description from favorites f,services s where f.buyer_id = ? and f.service_id = s.service_id and s.is_draft = 0 ",
         [buyer_id],
         (err, result) => {
           if (err) rej(err);

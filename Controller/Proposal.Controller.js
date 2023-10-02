@@ -10,6 +10,7 @@ export const getAllBuyerProposal = async (req, res) => {
     response = await Proposal.getAllBuyerProposalsByIdAsync(user_id);
     if (!response || response.length === 0) throw "No Proposals Found";
   } catch (error) {
+    console.log(error);
     response = error.sqlMessage || error;
     return res.status(400).send(response);
   }
