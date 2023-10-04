@@ -90,7 +90,8 @@ export class JobPost {
       sql.query(
         `SELECT pro.project_title,pro.project_description,pro.budget,pro.project_date,pro.location,pro.project_id,pro.subCategory_id,u.username,pro.buyer_id  
         FROM projects pro,users u 
-        WHERE pro.buyer_id = u.user_id`,
+        WHERE pro.buyer_id = u.user_id
+        ORDER BY pro.created_date DESC;`,
         (err, result) => {
           if (err) rej(err);
           else res(result);
