@@ -37,6 +37,21 @@ export class JobPost {
     });
   };
 
+  static getOneBuyerProjectByIdAsync = (buyer_id, project_id) => {
+    return new Promise((res, rej) => {
+      sql.query(
+        `select p.project_id,p.project_title,p.project_description,p.budget,p.project_date,s.subCategory_name,c.category_name
+        from projects p, subCategories s,categories c
+        where s.subCategory_id = p.subCategory_id and s.parent_id = c.category_id and p.buyer_id = ? and p.project_id = ?;`,
+        [buyer_id, project_id],
+        (err, result) => {
+          if (err) rej(err);
+          else res(result);
+        }
+      );
+    });
+  };
+
   static getProjectDateByIdAsync = (project_id, buyer_id) => {
     return new Promise((res, rej) => {
       sql.query(

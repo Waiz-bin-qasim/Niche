@@ -47,6 +47,19 @@ export const getJobPostBuyer = async (req, res) => {
   res.send(response);
 };
 
+export const getOneJobPostBuyer = async (req, res) => {
+  const { user_id } = req.body;
+  const { project_id } = req.params;
+  let response;
+  try {
+    response = await JobPost.getOneBuyerProjectByIdAsync(user_id, project_id);
+  } catch (err) {
+    response = err.sqlMessage || err;
+    return res.status(400).send(response);
+  }
+  res.send(response);
+};
+
 export const updateJobPostBuyer = async (req, res) => {
   const { project_id } = req.params;
   const { user_id } = req.body;
@@ -59,6 +72,7 @@ export const updateJobPostBuyer = async (req, res) => {
   delete data.project_id;
   delete data.location;
   delete data.created_date;
+  delete data.subCategory_id;
   let response;
   const dateObject = new Date(data.project_date);
   try {

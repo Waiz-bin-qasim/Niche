@@ -69,7 +69,7 @@ export class Proposal {
   static getAllProposalByProjectIdAsync = (project_id, buyer_id) => {
     return new Promise((resolve, reject) => {
       sql.query(
-        `select p.project_id,p.proposal_amount,p.proposal_id,p.seller_id,p.proposal_date,pro.project_title,u.username,p.proposal_data,s.total_projects_completed,s.total_earning  from proposals p,projects pro,users u,sellers s where p.buyer_id = ? and pro.project_id = p.project_id and p.seller_id = u.user_id and p.project_id = ? and s.seller_id = p.seller_id`,
+        `select p.project_id,p.proposal_amount,p.proposal_id,p.seller_id,p.proposal_date,pro.project_title,u.username,p.proposal_data,s.total_projects_completed,s.total_earning,u.profile_picture  from proposals p,projects pro,users u,sellers s where p.buyer_id = ? and pro.project_id = p.project_id and p.seller_id = u.user_id and p.project_id = ? and s.seller_id = p.seller_id`,
         [buyer_id, project_id],
         (err, res) => {
           if (err) reject(err);
