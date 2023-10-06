@@ -30,13 +30,23 @@ ProposalRoutes.get(
 ); // specific proposal ki sari details jaingi
 
 // Routes For seller
-ProposalRoutes.put("/:proposal_id", authToken, sellerCheck, updateProposal);
-ProposalRoutes.delete("/:proposal_id", authToken, sellerCheck, deleteProposal);
-ProposalRoutes.post("/", authToken, sellerCheck, addProposal);
+ProposalRoutes.put(
+  "/seller/:proposal_id",
+  authToken,
+  sellerCheck,
+  updateProposal
+);
+ProposalRoutes.delete(
+  "/seller/:proposal_id",
+  authToken,
+  sellerCheck,
+  deleteProposal
+);
+ProposalRoutes.post("/seller", authToken, sellerCheck, addProposal);
 ProposalRoutes.get("/seller", authToken, sellerCheck, getAllSellerProposal);
 // correct this
 ProposalRoutes.get(
-  "/seller/:project_id",
+  "/seller/:proposal_id",
   authToken,
   sellerCheck,
   getOneSellerProposal

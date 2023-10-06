@@ -24,7 +24,14 @@ export const getOneSellerProposal = async (req, res) => {
   try {
     response = await Proposal.getOneSellerProposal(user_id, proposal_id);
     if (!response || response === 0) throw "No Proposal was Found";
+    let i = 0;
+    for (let value of response) {
+      console.log(value);
+      response[i].proposal_data = JSON.parse(value.proposal_data);
+      i++;
+    }
   } catch (error) {
+    console.log(error);
     response = error.sqlMessage || error;
     return res.status(400).send(response);
   }
@@ -58,10 +65,39 @@ export const addProposal = async (req, res) => {
   return res.status(200).send(response);
 };
 
-export const updateProposal = (req, res) => {
+export const updateProposal = async (req, res) => {
+  const { proposal_id } = req.params;
+  const { user_id } = req.body;
+  const data = req.body;
+  delete data.user_id;
+  delete data.role;
+  delete data.iat;
+  delete data.exp;
+  delete data.status;
+  delete data.project_id;
+  delete data.buyer_id;
+  delete data.proposal_date;
+  delete data.seller_id;
+  delete data.proposal_id;
   let response;
   try {
-  } catch (error) {}
+    if (Object.keys(data).length <= 0) {
+      throw "Nothing to update";
+    }
+    response = await Proposal.updateProposalByIdAsync(
+      proposal_id,
+      user_id,
+      data
+    );
+    if (response.affectedRows === 0) {
+      throw "Proposal does not exist ";
+    }
+  } catch (error) {
+    console.log(error);
+    response = error.sqlMessage || error;
+    return res.status(400).send(response);
+  }
+  return res.status(200).send(response);
 };
 
 export const getAllSellerProposal = async (req, res) => {
@@ -78,7 +114,22 @@ export const getAllSellerProposal = async (req, res) => {
   return res.status(200).send(response);
 };
 
-export const deleteProposal = async (req, res) => {};
+export const deleteProposal = async (req, res) => {
+  const { proposal_id } = req.params;
+  const { user_id } = req.body;
+  let response;
+  try {
+    response = await Proposal.deleteProposalByIdAsync(user_id, proposal_id);
+    if (response.affectedRows === 0) {
+      throw "Proposal does not exist ";
+    }
+  } catch (error) {
+    console.log(error);
+    response = error.sqlMessage || error;
+    return res.status(400).send(response);
+  }
+  return res.status(200).send(response);
+};
 
 //  controller for buyer
 export const getAllProposalByProjectId = async (req, res) => {

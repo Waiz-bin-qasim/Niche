@@ -14,8 +14,13 @@ export class SubCategory {
       cb
     );
   };
-  static getAll = (cb) => {
-    sql.query("select * from subCategories", cb);
+  static getAllAsync = () => {
+    return new Promise((resolve, reject) => {
+      sql.query(`select * from subCategories`, (err, res) => {
+        if (err) reject(err);
+        else resolve(res);
+      });
+    });
   };
 
   static findByCategoryId = (id, cb) => {

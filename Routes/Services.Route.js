@@ -79,6 +79,6 @@ serviceRoute.post(
 );
 
 // _________BEST SELLING SERVICE_________
-serviceRoute.get("/bestselling", getBestSellingServices);
+serviceRoute.get("/seller/bestselling", getBestSellingServices);
 
 export default serviceRoute;

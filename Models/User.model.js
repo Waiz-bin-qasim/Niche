@@ -41,4 +41,36 @@ export class User {
   static updateById = (id, values, cb) => {
     sql.query("update users set ? where user_id = ?", [values, id], cb);
   };
+
+  static addCardByIdAsync = (user_id, values) => {
+    return new Promise((res, rej) => {
+      sql.query(
+        "update users set ? where user_id = ? and is_verified = 1 and status = 1 ",
+        [values, user_id],
+        (err, result) => {
+          if (err) {
+            rej(err);
+          } else {
+            res(result);
+          }
+        }
+      );
+    });
+  };
+
+  static getCardByIdAsync = (user_id) => {
+    return new Promise((res, rej) => {
+      sql.query(
+        "select user_card_number, user_card_expiry, user_card_cvc from users where user_id = ? ",
+        [user_id],
+        (err, result) => {
+          if (err) {
+            rej(err);
+          } else {
+            res(result);
+          }
+        }
+      );
+    });
+  };
 }

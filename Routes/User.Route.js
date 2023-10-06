@@ -1,5 +1,7 @@
 import { Router } from "express";
 import {
+  addCard,
+  getCard,
   getStatus,
   resetPassword,
   resetPasswordReq,
@@ -18,9 +20,13 @@ const UserRoute = new Router();
 UserRoute.get("/resetpassword", resetPasswordReq);
 UserRoute.post("/resetpassword", authToken, resetPasswordCheck, resetPassword);
 UserRoute.get("/status", authToken, getStatus);
-UserRoute.post("/verification", authToken,imageUpload("Images/Status_Verification"),verification);
-// UserRoute.post('/', SessionController.store);
-// UserRoute.put('/', SessionController.store);
-// UserRoute.delete('/', SessionController.store);
+UserRoute.post(
+  "/verification",
+  authToken,
+  imageUpload("Images/Status_Verification"),
+  verification
+);
+UserRoute.post("/card", authToken, addCard);
+UserRoute.get("/card", authToken, getCard);
 
 export default UserRoute;

@@ -128,3 +128,39 @@ export const verification = (req, res) => {
     });
   }
 };
+
+export const addCard = async (req, res) => {
+  const { user_id, user_card_number, user_card_expiry, user_card_cvc } =
+    req.body;
+  let response;
+  try {
+    if ((user_card_number, user_card_expiry, user_card_cvc)) {
+      response = await User.addCardByIdAsync(user_id, {
+        user_card_number,
+        user_card_expiry,
+        user_card_cvc,
+      });
+    } else {
+      throw "Something missing in body";
+    }
+  } catch (error) {
+    response = err.sqlMessage || error;
+    return res.status(400).send(response);
+  }
+  return res.send(response);
+};
+
+export const getCard = async (req, res) => {
+  const { user_id } = req.body;
+  let response;
+  try {
+    response = await User.getCardByIdAsync(user_id);
+    if (response.length === 0) {
+      throw "User Card Credentials Not Found";
+    }
+  } catch (error) {
+    response = err.sqlMessage || error;
+    return res.status(400).send(response);
+  }
+  return res.send(response);
+};

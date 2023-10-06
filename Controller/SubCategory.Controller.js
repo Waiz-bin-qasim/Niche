@@ -69,4 +69,14 @@ export const deleteSubCategory = (req, res) => {
   }
 };
 
-export const getSubCategory = (req, res) => {};
+export const getSubCategory = async (req, res) => {
+  let response;
+  try {
+    response = await SubCategory.getAllAsync();
+  } catch (error) {
+    console.log(error);
+    response = error.sqlMessage || error;
+    return res.status(400).send(response);
+  }
+  return res.status(200).send(response);
+};

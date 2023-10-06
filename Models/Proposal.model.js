@@ -30,7 +30,7 @@ export class Proposal {
   static getOneSellerProposal = (seller_id, proposal_id) => {
     return new Promise((resolve, reject) => {
       sql.query(
-        `select p.buyer_id,p.project_id,p.proposal_amount,p.proposal_id,p.seller_id,p.proposal_date,pro.project_title,u.username  from proposals p,projects pro,users u where p.seller_id = ? and pro.project_id = p.project_id and p.buyer_id = u.user_id and p.proposal_id = ? `,
+        `select p.buyer_id,p.project_id,p.proposal_amount,p.proposal_id,p.seller_id,p.proposal_date,pro.project_title,u.username,p.proposal_data  from proposals p,projects pro,users u where p.seller_id = ? and pro.project_id = p.project_id and p.buyer_id = u.user_id and p.proposal_id = ? `,
         [seller_id, proposal_id],
         (err, res) => {
           if (err) reject(err);
@@ -74,6 +74,38 @@ export class Proposal {
         (err, res) => {
           if (err) reject(err);
           else resolve(res);
+        }
+      );
+    });
+  };
+
+  static deleteProposalByIdAsync = (seller_id, proposal_id) => {
+    return new Promise((res, rej) => {
+      sql.query(
+        "delete from proposals where proposal_id = ? and seller_id = ? ",
+        [proposal_id, seller_id],
+        (err, result) => {
+          if (err) {
+            rej(err);
+          } else {
+            res(result);
+          }
+        }
+      );
+    });
+  };
+
+  static updateProposalByIdAsync = (proposal_id, seller_id, values) => {
+    return new Promise((res, rej) => {
+      sql.query(
+        "update proposals set ? where proposal_id = ? and seller_id = ? ",
+        [values, proposal_id, seller_id],
+        (err, result) => {
+          if (err) {
+            rej(err);
+          } else {
+            res(result);
+          }
         }
       );
     });

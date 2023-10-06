@@ -4,6 +4,7 @@ import { adminCheck } from "../Middlewares/tokenValidation.js";
 import {
   addSubCategory,
   deleteSubCategory,
+  getSubCategory,
 } from "../Controller/SubCategory.Controller.js";
 import { imageUpload } from "../Middlewares/ImageCheck.js";
 
@@ -21,6 +22,6 @@ SubCategoryRoutes.delete(
   adminCheck,
   deleteSubCategory
 );
-// SubCategoryRoutes.put('/', SessionController.store);
+SubCategoryRoutes.get("/all", getSubCategory);
 
 export default SubCategoryRoutes;
